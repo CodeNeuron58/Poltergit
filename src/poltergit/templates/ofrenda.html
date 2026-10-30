@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="An ofrenda for the deleted code of {{ repo }}. Created with Poltergit."><title>{{ repo }} — an ofrenda by Poltergit</title><link rel="stylesheet" href="styles.css"></head>
+<body class="static-page">
+<header class="masthead"><span class="brand">poltergit<span class="brand-dot">✦</span></span><span class="static-label">THE OFRENDA / {{ repo }}</span></header>
+<main>
+  <section class="view-intro"><p class="eyebrow">IN MEMORY OF WHAT CAME BEFORE</p><h2>Gone from the tree.<br><em>Still part of the story.</em></h2><p>An ofrenda for the deleted code of <strong>{{ repo }}</strong>.<br>Its service ended. Its contribution remains in the record.</p></section>
+  <p class="scan-note">{{ memorials|length }} memorials found in the last {{ limit }} first-parent commits. Birth dates come from Git history, with Python function additions traced through up to 200 file revisions. Missing dates remain unknown. Removal messages are preserved verbatim, without inferred motives.</p>
+  <div class="memorial-grid">
+  {% for item in memorials %}
+    <article class="memorial"><div class="memorial-candle" aria-hidden="true">✦</div><div class="memorial-kind">In memory of a {{ item.kind }}</div><h3>{{ item.name.split('/')[-1] }}{% if item.kind == 'function' %}(){% endif %}</h3><p class="memorial-path">{{ item.path }}</p><p class="memorial-life">{{ item.born[:10] if item.born else 'not recorded' }} — {{ item.departed[:10] }}</p><p class="memorial-age">{% if item.days is not none %}{{ item.days }} days of service{% else %}Its age is not recorded.{% endif %}</p><p class="memorial-reason">{{ item.reason }}</p>{% if item.removal_url %}<a class="source-link" href="{{ item.removal_url }}" target="_blank" rel="noopener noreferrer">Read the removal commit ↗</a>{% else %}<span class="source-link">git show {{ item.removal_sha[:12] }}</span>{% endif %}<p class="memorial-note">Removal message, preserved verbatim.</p></article>
+  {% else %}<p class="empty-list">No deleted files or Python functions were found in this history window.</p>{% endfor %}
+  </div>
+  <section class="closing"><span>✦</span><p>Thank you for the work you did.</p><span>✦</span></section>
+</main>
+<footer><span>poltergit<span class="brand-dot">✦</span> <small>HONOR THE PAST. UNDERSTAND THE PRESENT.</small></span><span>Generated from {{ revision[:12] }} · No model required.</span></footer>
+</body>
+</html>

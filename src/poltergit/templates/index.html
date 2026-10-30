@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A séance for your Git history. Ask a line why it exists, with sources.">
+  <meta name="poltergit-token" content="{{ nonce }}">
+  <meta name="theme-color" content="#141714">
+  <title>Poltergit — a séance for your Git history</title>
+  <link rel="icon" href="/static/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">Skip to the séance</a>
+  <header class="masthead">
+    <a class="brand" href="/" aria-label="Poltergit home"><img src="/static/mark.svg" alt="" width="34" height="34">poltergit<span class="brand-dot">✦</span></a>
+    <nav aria-label="Main navigation">
+      <button class="nav-item active" data-view="seance" aria-current="page"><span>01</span> The séance</button>
+      <button class="nav-item" data-view="ofrenda"><span>02</span> The ofrenda</button>
+      <button class="nav-item" data-view="traces"><span>03</span> The traces</button>
+    </nav>
+    <button class="connection" id="connection-button"><i></i> Local spirits <span>↗</span></button>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="tiny-star">✦</span> A SÉANCE FOR YOUR GIT HISTORY</p>
+        <h1 id="hero-title">Some code<br>never <em>rests.</em></h1>
+        <p class="hero-description">That delay. That magic number. That thing nobody dares delete.<br class="desktop-break"> Ask it why it’s here. Let the history speak.</p>
+        <div class="hero-foot"><span class="rule"></span> THE CODE SPEAKS. THE SOURCES REMAIN.</div>
+      </div>
+      <div class="spirit-board" aria-hidden="true">
+        <div class="board-ring outer"></div><div class="board-ring inner"></div>
+        <span class="board-word north">EVERY LINE HAS A PAST</span>
+        <span class="board-star star-a">✧</span><span class="board-star star-b">✦</span>
+        <span class="board-coordinate coord-a">GIT<br>HISTORY</span><span class="board-coordinate coord-b">WITH<br>SOURCES</span>
+        <svg class="planchette" viewBox="0 0 200 235" fill="none"><path d="M100 12C132 39 180 103 183 158C186 203 149 219 100 208C51 219 14 203 17 158C20 103 68 39 100 12Z" fill="#bda777" stroke="#dfc899" stroke-width="1.2"/><path d="M100 28C129 56 166 108 169 156C171 190 144 205 100 193C56 205 29 190 31 156C34 108 71 56 100 28Z" stroke="#544a35"/><circle cx="100" cy="124" r="33" fill="#171c17" stroke="#62543c" stroke-width="7"/><path d="M76 124Q100 100 124 124Q100 148 76 124Z" stroke="#bda777"/><circle cx="100" cy="124" r="7" fill="#bda777"/><path d="M100 62v18M91 71h18M71 175l29-12 29 12" stroke="#65573e"/><circle cx="100" cy="178" r="3" fill="#65573e"/></svg>
+        <span class="board-word south">NOTHING INVENTED · NOTHING FORGOTTEN</span>
+      </div>
+    </section>
+
+    <section id="workspace" class="workspace">
+      <div class="workspace-top"><div class="section-label"><span class="tiny-star">✦</span> <span id="section-title">THE SÉANCE ROOM</span></div><div class="repo-label"><span class="status-dot"></span><span id="repo-name">{{ repo }}</span><span id="revision" class="muted"></span></div></div>
+      <section id="view-seance" class="view-panel">
+        <form id="summon-form" class="summon-bar">
+          <label class="target-label" for="target">SUMMON A LINE</label>
+          <div class="target-input-wrap"><span aria-hidden="true">↳</span><input id="target" name="target" placeholder="src/client.py:13" required autocomplete="off" spellcheck="false" aria-describedby="target-help"></div>
+          <button class="summon-button" id="summon-button" type="submit">Begin the séance <span>↗</span></button>
+        </form>
+        <div class="session-options"><span id="target-help">Choose a line below, or enter a file:line.</span><label class="mode-toggle"><input type="checkbox" id="record-mode" {% if record_only %}checked{% endif %}> Source excerpts only <span title="Skip the model and read the original record.">ⓘ</span></label></div>
+        <div id="notice" class="notice" role="status" hidden></div>
+        <div class="seance-grid">
+          <section class="code-panel" aria-label="Committed source code">
+            <div class="panel-head"><label for="file-select"><span class="panel-icon">⌘</span> THE LIVING CODE</label><span class="muted">HEAD</span></div>
+            <select id="file-select" aria-label="Select a tracked file"><option>Loading the repository…</option></select>
+            <div id="code-lines" class="code-lines" aria-label="Click a line to select it"><div class="loading-text">Reading the committed record…</div></div>
+            <div class="code-footer"><span id="line-count">—</span><span>Choose the line that haunts you.</span></div>
+          </section>
+          <section class="answer-panel" aria-label="The line's answer">
+            <div class="panel-head"><span><span class="panel-icon">◈</span> FROM THE OTHER SIDE</span><span id="answer-state" class="answer-state">AWAITING A QUESTION</span></div>
+            <div id="answer-empty" class="answer-empty"><span class="empty-sigil">✧</span><h2>There’s a story<br>in the source.</h2><p>Invite a line to speak.<br>Every explanation brings its evidence.</p><span class="empty-coordinate">NO GUESSWORK BEYOND THE GRAVE</span></div>
+            <div id="answer-content" class="answer-content" hidden>
+              <p class="eyebrow" id="speaking-as">THE LINE REMEMBERS</p>
+              <div id="answer-text" class="answer-text" role="status" aria-live="polite"></div>
+              <div id="answer-meta" class="answer-meta"></div>
+              <div class="answer-actions"><button id="voice-button" class="text-button" disabled>◖ Hear the spirit</button><button id="copy-button" class="text-button" disabled>Copy with sources ↗</button></div>
+              <audio id="voice-player" controls hidden></audio>
+            </div>
+          </section>
+        </div>
+        <section id="evidence-section" class="evidence-section" hidden><div class="evidence-heading"><h2>The record behind the voice<span id="source-count"></span></h2><p>Inspect the words. Follow the trail.</p></div><div id="evidence-list" class="evidence-list"></div></section>
+        <div class="principles"><span><b>01</b> Speaks as the code, never its author</span><span><b>02</b> Every claim has a source</span><span><b>03</b> Silence is an honest answer</span></div>
+      </section>
+
+      <section id="view-ofrenda" class="view-panel" hidden>
+        <div class="view-intro"><p class="eyebrow">IN MEMORY OF WHAT CAME BEFORE</p><h2>Gone from the tree.<br><em>Still part of the story.</em></h2><p>An ofrenda for deleted files and Python functions. Their service ended.<br>Their contribution remains in the record.</p></div>
+        <p class="scan-note">Walking the most recent 80 first-parent commits. Function births are traced through up to 200 file revisions; missing dates are left unknown. Renamed files are not counted as departed.</p>
+        <div id="memorial-list" class="memorial-grid"></div>
+        <p class="export-hint">Make a lasting tribute: <code>uv run poltergit ofrenda --repo /path/to/repo --output site</code></p>
+      </section>
+
+      <section id="view-traces" class="view-panel" hidden>
+        <div class="view-intro"><p class="eyebrow">NOT EVEN A GHOST GOES UNOBSERVED</p><h2>Follow the <em>séance.</em></h2><p>History, retrieval, reasoning, verification. A trace of every step.<br>Source code and prompts stay out of telemetry.</p></div>
+        <button id="refresh-traces" class="text-button">Refresh traces ↻</button>
+        <div id="trace-list" class="trace-list"></div>
+      </section>
+    </section>
+    <section class="closing"><span>✦</span><p>“The record is silent” is a feature.</p><span>✦</span></section>
+  </main>
+  <footer><span>poltergit<span class="brand-dot">✦</span> <small>HONOR THE PAST. UNDERSTAND THE PRESENT.</small></span><span>Local models. Open source. No paid inference.</span></footer>
+  <dialog id="connection-dialog"><div class="dialog-head"><h2>The local spirits</h2><button id="close-dialog" aria-label="Close connection status">×</button></div><p>Optional connections. The committed record is always available.</p><div id="health-list">Checking connections…</div><p class="dialog-note">Configure integrations in your local <code>.env</code>. Never paste credentials into the app.</p></dialog>
+</body>
+</html>

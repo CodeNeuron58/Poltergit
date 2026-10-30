@@ -52,7 +52,7 @@ class Ollama:
     def answer(self, history: LineHistory) -> tuple[ModelAnswer, dict]:
         data = {"path": history.path, "line": history.line, "code": history.code,
                 "context": history.context,
-                "sources": [s.model_dump(include={"id", "title", "body", "kind"}) for s in history.evidence]}
+                "sources": [s.model_dump(include={"id", "title", "body", "kind", "patch"}) for s in history.evidence]}
         response = self.request("/api/chat", {
             "model": self.settings.model, "stream": False,
             "format": ModelAnswer.model_json_schema(),

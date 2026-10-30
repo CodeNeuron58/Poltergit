@@ -17,6 +17,7 @@ def configure(settings: Settings) -> None:
             dsn=settings.sentry_dsn, traces_sample_rate=1.0,
             send_default_pii=False, include_local_variables=False,
             default_integrations=False, environment="local",
+            stream_gen_ai_spans=False,
             # Only explicitly instrumented transactions; no errors with source locals.
             before_send=lambda event, hint: None,
         )
@@ -43,7 +44,7 @@ class Trace:
     def step(self, name: str, op: str = "function", **attributes):
         start = time.perf_counter()
         record = {"name": name, "op": op, "status": "ok", "start_ms": round((start - self.started) * 1000, 2)}
-        with sentry_sdk.start_span(op=op, name=name) as span:
+        with self.transaction.start_child(op=op, name=name) as span:
             try:
                 yield attributes
             except Exception as exc:

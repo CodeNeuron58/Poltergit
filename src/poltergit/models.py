@@ -12,6 +12,7 @@ class Evidence(BaseModel):
     date: str = ""
     url: str = ""
     path: str = ""
+    patch: str = ""
 
 
 class LineHistory(BaseModel):

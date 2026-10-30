@@ -8,6 +8,7 @@ import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+from rich.text import Text
 
 from .config import Settings
 from .demo import create_demo
@@ -47,7 +48,7 @@ def why(
     if json_output:
         typer.echo(answer.model_dump_json(indent=2))
         return
-    console.print(Panel(f"{target}\n{answer.history.code}", title="POLTERGIT / THE SÉANCE", border_style="dark_orange", markup=False))
+    console.print(Panel(Text(f"{target}\n{answer.history.code}"), title="POLTERGIT / THE SÉANCE", border_style="dark_orange"))
     if no_animation or not sys.stdout.isatty():
         console.print(answer.text, markup=False)
     else:

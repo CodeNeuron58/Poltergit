@@ -8,6 +8,7 @@ def test_line_history_follows_the_changed_line(repo):
     assert history.code.strip() == "time.sleep(3)"
     assert "reservation" in history.evidence[0].body
     assert len(history.evidence) == 2
+    assert "+            time.sleep(3)" in history.evidence[0].patch
     assert all("cache" not in s.title for s in history.evidence[:-1])
 
 
@@ -32,7 +33,7 @@ def test_ofrenda_contains_deleted_file_and_function(repo):
     assert "stale credentials" in cache.reason
     ping = next(m for m in memorials if m.kind == "function")
     assert ping.name == "legacy_ping"
-    assert ping.born == "" and ping.days is None
+    assert ping.born.startswith("2024-01-10") and ping.days == 401
 
 
 def test_nested_functions_have_distinct_names():

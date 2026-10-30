@@ -92,9 +92,14 @@ class Repository:
             raise GitError(f"Line must be between 1 and {len(lines)}.")
         # -L walks the selected committed line, including earlier line numbers/renames.
         raw = self.git("log", "--no-ext-diff", "--no-textconv", f"-n{limit}",
-                       "--format=%H", "--no-patch", f"-L{line},{line}:{path}", self.revision)
-        shas = [s for s in raw.splitlines() if re.fullmatch(r"[a-f0-9]{40,64}", s)]
-        evidence = [self.commit(s, path) for s in dict.fromkeys(shas)]
+                       "--format=POLTERGIT_COMMIT:%H", "--patch", f"-L{line},{line}:{path}", self.revision)
+        parts = re.split(r"(?m)^POLTERGIT_COMMIT:([a-f0-9]{40,64})\n", raw)
+        shas = parts[1::2]
+        evidence = []
+        for sha, patch in zip(shas, parts[2::2], strict=True):
+            source = self.commit(sha, path)
+            source.patch = patch.strip()[:1000]
+            evidence.append(source)
         warnings = []
         if self.git("status", "--porcelain", "--", path).strip():
             warnings.append("This file has uncommitted changes. Line numbers and evidence refer to HEAD.")
@@ -139,16 +144,45 @@ class Repository:
                     except (SyntaxError, GitError):
                         continue
                 for name, kind in removed:
-                    # File birth is exact for the last add before removal. Function birth
-                    # requires its own structural history; don't invent it from file age.
                     born = ""
                     if kind == "file":
                         born = self.git("log", "--follow", "--diff-filter=A", "-n1", "--format=%cI", parent, "--", path).strip()
+                    else:
+                        born = self.function_birth(parent, path, name)
                     days = max(0, (datetime.fromisoformat(change.date) - datetime.fromisoformat(born)).days) if born else None
                     records.append(Memorial(name=name, path=path, kind=kind, born=born,
                         departed=change.date, days=days, removal_sha=sha, removal_url=change.url,
                         reason=change.body, epitaph=f"I was {'a file' if kind == 'file' else 'a function'} in {path}. My removal is recorded below."))
         return records
+
+    def function_birth(self, revision: str, path: str, name: str, limit: int = 200) -> str:
+        """Find the addition of this function incarnation using ASTs, following renames."""
+        shas = self.git("log", "--follow", "--first-parent", f"-n{limit}", "--format=%H", revision, "--", path).splitlines()
+        current_path = path
+        for sha in shas:
+            parents = self.git("rev-list", "--parents", "-n1", sha).split()[1:]
+            previous_path = current_path
+            if parents:
+                # Track the old file name when this revision renamed the file.
+                entries = self.git("diff", "--name-status", "--no-ext-diff", "-z", "-M", parents[0], sha).split("\x00")
+                i = 0
+                while i < len(entries) - 1:
+                    status, old = entries[i:i + 2]
+                    i += 2
+                    if status.startswith(("R", "C")):
+                        new = entries[i]
+                        i += 1
+                        if new == current_path:
+                            previous_path = old
+            try:
+                after = function_names(self.blob(sha, current_path))
+                before = function_names(self.blob(parents[0], previous_path)) if parents else set()
+            except (SyntaxError, GitError):
+                return ""
+            if name in after and name not in before:
+                return self.git("show", "-s", "--format=%cI", sha).strip()
+            current_path = previous_path
+        return ""
 
 
 def function_names(source: str) -> set[str]:
