@@ -13,5 +13,39 @@ uv run poltergit why src/client.py:13 --repo .poltergit/demo --record
 `--record` works without a model or an account. The demo uses fictional, clearly
 labeled history in a real Git repository. All analysis reads committed `HEAD`.
 
-Full setup, the local web interface, integrations, and submission instructions
-are being built in the next local commits.
+Open the local interface:
+
+```powershell
+uv run poltergit serve --repo .poltergit/demo --record
+```
+
+Visit http://127.0.0.1:8787. Uncheck **Source excerpts only** to use Ollama.
+Use `Ctrl+C` to stop the server.
+
+```powershell
+# Local model inference (requires the downloaded Ollama models)
+uv run poltergit why src/client.py:13 --repo .poltergit/demo --no-animation
+
+# Static memorial site
+uv run poltergit ofrenda --repo .poltergit/demo --output site
+
+# Optional local voice
+uv sync --extra voice
+uv run python scripts/download_voice.py
+uv run --extra voice poltergit why src/client.py:13 --repo .poltergit/demo --speak
+
+# Check setup / run tests
+uv run poltergit doctor
+uv run pytest
+```
+
+Copy `.env.example` to `.env` to configure optional integrations. Use
+`POLTERGIT_DATABASE_URL` for a Tiger Cloud or local pgvector database, then
+`uv run poltergit index --repo .poltergit/demo`. Set `POLTERGIT_SENTRY_DSN` to
+export content-free trace metadata. GitHub retrieval is opt-in with `--github`.
+No Entire integration is included.
+
+The GitHub Pages workflow is manual and publishes the fictional demo's ofrenda.
+Nothing is published automatically by this local build.
+
+See [HANDOFF.md](HANDOFF.md) for the exact stopping point and remaining work.
