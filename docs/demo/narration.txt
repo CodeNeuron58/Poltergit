@@ -1,0 +1,11 @@
+Some code never rests. Poltergit asks a line why it exists.
+
+This three-second delay answers through Gemma, running locally. It speaks as the code, with a citation.
+
+The original commit explains it: the gateway reserves closed sessions for two seconds. Every ghost brings receipts.
+
+Kokoro gives the code a voice. My existence is tied to preventing a reconnect storm, as a three-second delay gives that reservation time to expire.
+
+The ofrenda remembers deleted code: how long it served, and the commit that retired it.
+
+And when history has no answer, the record is silent.

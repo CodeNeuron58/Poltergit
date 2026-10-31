@@ -1,24 +1,29 @@
 # Short Poltergit demo
 
-**poltergit-demo.mp4** — 46 seconds, 1920×1080, 30 fps, H.264 video + AAC audio.
+**poltergit-demo-narrated.mp4** — the revised narrated walkthrough, 1920×1080, 30 fps,
+H.264 video + AAC audio. Exact timings are recorded in `timeline.json`.
+Use this version for submission. `poltergit-demo.mp4` preserves the original
+46-second version with the voice sample and atmosphere, for comparison.
 
 This is an edited walkthrough made from authentic saved UI screenshots and a
-recorded local Kokoro voice sample. It is not a continuous screen recording.
+clean local Kokoro AI voiceover throughout. It is not a continuous screen recording.
 The video explicitly labels the omitted CPU inference wait and the fictional
 demo repository. UI text, model responses, and commit evidence were not altered.
-The voice sample comes from another successful séance of the same line; it is
-not presented as a verbatim reading of the screenshot's answer.
+The voice chapter reads the actual answer shown in the screenshot. Narration is
+generated directly through Kokoro without the application's echo effect.
 
-## Timeline
+## Chapters
 
-- 00:00–00:05: Poltergit introduction.
-- 00:05–00:13: Actual Gemma answer for `src/client.py:13`.
-- 00:13–00:20: Supporting Git commit message.
-- 00:20–00:35: Recorded local Kokoro voice, with a quiet echo.
-- 00:35–00:42: Ofrenda for the deleted file and function.
-- 00:42–00:46: Closing card and honest-silence principle.
+- Poltergit introduction.
+- Actual Gemma answer for `src/client.py:13`.
+- Supporting Git commit message.
+- A clean Kokoro reading of the displayed answer.
+- Ofrenda for the deleted file and function.
+- Closing card and honest-silence principle.
 
-The soundtrack is a quiet synthesized tone; no third-party music was used.
+There is no background hum, music, echo, or reverb in the revised video.
+The full AI narration script is saved in `narration.txt`. Scene lengths adjust
+to fit the speech naturally without cutting words or speeding up the audio.
 No Tiger Data connection, Sentry dashboard, Entire integration, or hosted live
 séance is claimed in the video.
 
@@ -31,11 +36,12 @@ image. The video has not been uploaded or published by the build process.
 ## Rebuild locally
 
 ```powershell
-uv run python scripts/make_demo_video.py
+uv run --extra voice python scripts/make_demo_video.py
 ```
 
 Requires the existing FFmpeg/ffprobe installation, Windows fonts, the screenshots
-in `docs/screenshots/`, and the original ignored recording at
-`.poltergit/audio/c122b36d95a447fbaf23bc1b925e05e0.wav`.
-No additional Python dependencies are installed. Intermediate render files and
-copied fonts are kept in the ignored `.poltergit/video-build/` directory.
+in `docs/screenshots/`, voice extras, and the local Kokoro model/voices configured
+in `.env`. No additional Python dependencies were installed for this revision.
+Narration is cached by text and voice settings. Intermediate render files,
+voice WAVs, and copied fonts are kept in the ignored `.poltergit/video-build/`
+directory. The app's own ghost-voice effect remains unchanged.

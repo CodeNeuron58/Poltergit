@@ -4,6 +4,8 @@
     "end_seconds": 5,
     "chapter": "POLTERGIT",
     "caption": "Ask a line why it exists. Let the history speak.",
+    "narration": "Some code never rests. Poltergit asks a line why it exists.",
+    "speech_seconds": 3.833,
     "source": "01-seance-home.png"
   },
   {
@@ -11,34 +13,44 @@
     "end_seconds": 13,
     "chapter": "01 / ASK THE CODE",
     "caption": "Gemma 4 answers in the line’s own voice, with a citation.",
+    "narration": "This three-second delay answers through Gemma, running locally. It speaks as the code, with a citation.",
+    "speech_seconds": 5.988,
     "source": "08-seance-gemma.png"
   },
   {
     "start_seconds": 13,
-    "end_seconds": 20,
+    "end_seconds": 20.566666666666666,
     "chapter": "02 / FOLLOW THE EVIDENCE",
     "caption": "The commit explains the gateway’s two-second reservation.",
+    "narration": "The original commit explains it: the gateway reserves closed sessions for two seconds. Every ghost brings receipts.",
+    "speech_seconds": 6.943,
     "source": "03-evidence-cards.png"
   },
   {
-    "start_seconds": 20,
-    "end_seconds": 35,
+    "start_seconds": 20.566666666666666,
+    "end_seconds": 32.56666666666666,
     "chapter": "03 / HEAR THE SPIRIT",
-    "caption": "Kokoro speaks locally, with a quiet echo.",
+    "caption": "Kokoro gives the code a voice, entirely locally.",
+    "narration": "Kokoro gives the code a voice. My existence is tied to preventing a reconnect storm, as a three-second delay gives that reservation time to expire.",
+    "speech_seconds": 9.427,
     "source": "08-seance-gemma.png"
   },
   {
-    "start_seconds": 35,
-    "end_seconds": 42,
+    "start_seconds": 32.56666666666666,
+    "end_seconds": 39.56666666666666,
     "chapter": "04 / HONOR THE PAST",
     "caption": "Deleted code gets an ofrenda: its lifetime and removal record.",
+    "narration": "The ofrenda remembers deleted code: how long it served, and the commit that retired it.",
+    "speech_seconds": 5.066,
     "source": "05-ofrenda.png"
   },
   {
-    "start_seconds": 42,
-    "end_seconds": 46,
+    "start_seconds": 39.56666666666666,
+    "end_seconds": 43.56666666666666,
     "chapter": "POLTERGIT",
     "caption": "Local Gemma. Real Git history. Sources you can inspect.",
+    "narration": "And when history has no answer, the record is silent.",
+    "speech_seconds": 2.966,
     "source": "Original title card"
   }
 ]
