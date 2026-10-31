@@ -1,0 +1,44 @@
+[
+  {
+    "start_seconds": 0,
+    "end_seconds": 5,
+    "chapter": "POLTERGIT",
+    "caption": "Ask a line why it exists. Let the history speak.",
+    "source": "01-seance-home.png"
+  },
+  {
+    "start_seconds": 5,
+    "end_seconds": 13,
+    "chapter": "01 / ASK THE CODE",
+    "caption": "Gemma 4 answers in the line’s own voice, with a citation.",
+    "source": "08-seance-gemma.png"
+  },
+  {
+    "start_seconds": 13,
+    "end_seconds": 20,
+    "chapter": "02 / FOLLOW THE EVIDENCE",
+    "caption": "The commit explains the gateway’s two-second reservation.",
+    "source": "03-evidence-cards.png"
+  },
+  {
+    "start_seconds": 20,
+    "end_seconds": 35,
+    "chapter": "03 / HEAR THE SPIRIT",
+    "caption": "Kokoro speaks locally, with a quiet echo.",
+    "source": "08-seance-gemma.png"
+  },
+  {
+    "start_seconds": 35,
+    "end_seconds": 42,
+    "chapter": "04 / HONOR THE PAST",
+    "caption": "Deleted code gets an ofrenda: its lifetime and removal record.",
+    "source": "05-ofrenda.png"
+  },
+  {
+    "start_seconds": 42,
+    "end_seconds": 46,
+    "chapter": "POLTERGIT",
+    "caption": "Local Gemma. Real Git history. Sources you can inspect.",
+    "source": "Original title card"
+  }
+]
