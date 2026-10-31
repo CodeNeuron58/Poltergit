@@ -72,4 +72,8 @@ class Trace:
         except OSError:
             # Telemetry must not break a successfully answered question.
             pass
+        if self.settings.sentry_dsn:
+            # default_integrations=False disables the atexit flush, and the CLI
+            # exits right after a séance, so the transaction must be sent here.
+            sentry_sdk.flush(timeout=5)
 
