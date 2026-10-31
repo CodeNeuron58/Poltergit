@@ -39,7 +39,10 @@ uv run poltergit doctor
 uv run pytest
 ```
 
-Copy `.env.example` to `.env` to configure optional integrations. Use
+Copy `.env.example` to `.env` to configure optional integrations. On a
+CPU-only machine, also set `POLTERGIT_TIMEOUT=600` there — answers take two
+to three minutes without a GPU. See [docs/SETUP.md](docs/SETUP.md) for the
+full setup guide. Use
 `POLTERGIT_DATABASE_URL` for a Tiger Cloud or local pgvector database, then
 `uv run poltergit index --repo .poltergit/demo`. Set `POLTERGIT_SENTRY_DSN` to
 export content-free trace metadata. GitHub retrieval is opt-in with `--github`.

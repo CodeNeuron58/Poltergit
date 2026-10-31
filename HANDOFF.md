@@ -113,3 +113,82 @@ and no hackathon entry was submitted.
 The localhost preview process was stopped and all downloads finished. The
 temporary preview tab could not be closed through the browser tool after the
 interruption; it may remain visible, but its server is no longer running.
+
+## Update — 1 November 2026 (early morning session)
+
+Deadline context (confirmed from the challenge page): submissions close
+October 31, 2026 at 11:59 PM PDT, which is 12:29 PM IST on Sunday 1 November.
+The submission is a DEV post published with the challenge's template
+(tags devchallenge + hf26challenge) with sections: What I Built, Demo
+(deployed link or video), Code (GitHub repo), How I Built It, Why Does Open
+Innovation Matter?, and Prize Categories (opt in by listing entered
+categories). Judging weights Writing Quality most heavily. Optional sections:
+My Agent Session (DevRelay), The Spirit of It. The page lists the categories
+Gemma ($200), Tiger Data ($100, pgvector + hybrid search), Sentry Agent
+Tracing ($100, traces/screenshots + debugging story), and a still-open fourth
+slot: Best Use of a .tech Domain ($100, free first-year domain via
+hacktoberfest.com/my/promos pointed at the Pages site). GitHub repo creation
+and pushing are deliberately left to the user.
+
+### Completed in this session
+
+- Handoff item 1 — live Gemma inference on the three demo lines:
+  - `src/client.py:13` (the 3-second delay): supported first-person answer
+    citing commit 958beca with an exact quote. Repeated twice, both good.
+  - `src/client.py:9` (retry loop): correct self-chosen silence
+    (`silent=true`, no claims) against a vague commit.
+  - `src/client.py:5` (MAGIC_NUMBER): nondeterministic — once an ideal
+    `claims=[]` silence, once a claim whose citation failed quote validation
+    and was discarded by the fallback. The safety net held in every case.
+- New finding: this machine is CPU-only for Ollama (i5-13500H, Iris Xe is not
+  supported by Ollama backends), ~6–11 tokens/s. A cold run plus inference
+  exceeded the default 180 s timeout (trace shows a 181 s ModelError). `.env`
+  now sets `POLTERGIT_TIMEOUT=600`; warm runs take 100–260 s.
+- Handoff item 2 — voice verified: `why --speak` produced
+  `.poltergit/audio/c122b36d95a447fbaf23bc1b925e05e0.wav` (13.9 s, 24 kHz mono,
+  echo effect applied, healthy waveform).
+- `site/` regenerated with the current function-birth-date ofrenda code.
+- LICENSE (MIT) added; `docs/SETUP.md` written (the file voice.py references
+  now exists); README links the setup guide and documents the CPU timeout.
+- Handoff item 5, partially — request/request cloned to `.poltergit/request`
+  (3.4 MB, full history). Two real séances with live GitHub enrichment:
+  - `README.md:3` (the 2020 deprecation notice): enrichment retrieved 8
+    sources including PR #3267 (“It’s time.”) and PR #3268 plus discussion;
+    Gemma fell back to labeled excerpts (thin quotable bodies — honest).
+  - `package.json:49` (uuid fork after node-uuid was abandoned): a real
+    Gemma answer citing the fork commit. Good story for the submission.
+- Handoff item 4 — browser verification finished with screenshots saved to
+  `docs/screenshots/`: home, séance room (record mode), evidence cards,
+  mobile 390×844 layout, ofrenda with memorial cards, trace archive, Local
+  spirits health panel, and a live Gemma answer in the UI with citation chip,
+  token count and “$0 inference API cost · quotes matched”.
+- Known cosmetic quirks (do not block submission): the summon button reads
+  “Listening to the history…” while working and recovers correctly;
+  full-page screenshots of the animated page duplicate content (use viewport
+  shots); `ruff check` still reports 7 style findings; the model can quote
+  from a source `patch` even though validation checks only `body`, which
+  makes claims about thin-bodied commits fall back to excerpts.
+
+### Still to do (owner: user)
+
+1. Create the GitHub repository, push `master`, confirm the Actions test
+   workflow passes, enable Pages (Settings → Pages → Source: GitHub Actions)
+   and dispatch the manual Pages workflow for the live ofrenda link.
+2. Sentry: create the free Developer project, paste the DSN into `.env`,
+   run one séance, inspect the exported transaction, screenshot it, and write
+   the debugging story (the AI-span streaming discovery already documented
+   above is the story).
+3. Tiger Data: create the free service, paste `POLTERGIT_DATABASE_URL` into
+   `.env`, run `poltergit index --repo .poltergit/demo`, demo `poltergit
+   search`, and optionally rerun the skipped pgvector test locally via
+   `POLTERGIT_TEST_DATABASE_URL`.
+4. Write and publish the DEV submission post from the challenge template
+   before 12:29 PM IST: embed the screenshots in `docs/screenshots/`, the
+   Pages link and repo, the Gemma/Tiger/Sentry proof, and a Prize Categories
+   section listing Gemma, Tiger Data, and Sentry. Remove the Entire /
+   agent-session claim from any copied pitch text (the feature was
+   intentionally omitted).
+5. Optional: claim a free .tech domain, point it at the Pages site, and add
+   the fourth category; record a demo video; save the build session with
+   DevRelay; fix the ruff findings and the patch-quote validation gap after
+   the deadline.
