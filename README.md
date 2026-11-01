@@ -18,7 +18,7 @@
   <a href="https://github.com/CodeNeuron58/Poltergit/actions/workflows/tests.yml"><img src="https://github.com/CodeNeuron58/Poltergit/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
   <img src="https://img.shields.io/badge/license-MIT-22281E" alt="MIT license">
   <img src="https://img.shields.io/badge/runs-100%25%20local-22281E" alt="Runs 100% locally">
-  <a href="https://dev.to/challenges/hacktoberfest-week4-2026-10-26"><img src="https://img.shields.io/badge/DEV-Hacktoberfest%202026-0A0A0A?logo=devdotto&logoColor=white" alt="DEV Hacktoberfest challenge"></a>
+  <a href="https://dev.to/code_neuron58/poltergit-i-held-a-seance-with-a-line-of-code-and-it-told-me-why-it-exists-57bh"><img src="https://img.shields.io/badge/DEV-Hacktoberfest%202026-0A0A0A?logo=devdotto&logoColor=white" alt="Read the write-up on DEV"></a>
 </p>
 
 <p align="center">
