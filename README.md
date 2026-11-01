@@ -95,7 +95,7 @@ uv run pytest
 Drop `--record` to let Gemma answer (set `POLTERGIT_TIMEOUT=600` on CPU-only machines — answers take
 two to three minutes without a GPU). Optional integrations go in `.env`: `POLTERGIT_DATABASE_URL` for
 hybrid search, `POLTERGIT_SENTRY_DSN` for tracing, `POLTERGIT_GITHUB=true` for PR and issue retrieval.
-Full setup: **[docs/SETUP.md](docs/SETUP.md)** · Build notes: **[HANDOFF.md](HANDOFF.md)**
+Full setup: **[docs/SETUP.md](docs/SETUP.md)**
 
 </details>
 
